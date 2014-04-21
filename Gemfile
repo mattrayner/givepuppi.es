@@ -60,6 +60,9 @@ gem 'gravtastic'
 # Allow image uploads (for our puppy)
 gem "paperclip", "~> 4.1"
 
+# Allow for HAML rendering
+gem "haml"
+
 # Add better errors to our application
 group :development do
   gem 'better_errors'

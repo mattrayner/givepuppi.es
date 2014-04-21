@@ -1,0 +1,5 @@
+<%= form_for @puppy, :url => puppies_path, :html => { :multipart => true } do |form| %>
+  <%= form.select :orientation, [['Horizontal','hor'],['Vertical','ver'],['Square','squ']] %>
+  <%= form.file_field :image %>
+  <%= form.submit 'Save' %>
+<% end %>
