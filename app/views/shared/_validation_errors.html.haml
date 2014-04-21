@@ -1,0 +1,9 @@
+- if (defined?(object) && !object.nil?) && object.errors.any?
+  .alert.alert-danger
+    %strong
+      = object.errors.size
+      error(s) occured.
+    They are detailed below:
+    %ul
+      - object.errors.full_messages.each do |msg|
+        %li= msg
