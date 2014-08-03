@@ -56,21 +56,18 @@ Givepuppies::Application.routes.draw do
   #   end
   root :to => "welcome#index"
 
-  get '/dashboard', :to => 'dashboard#index'
+  # Create a dashboard namespace
+  namespace :dashboard do
+    get '/', :to => 'welcome#index'
 
-  get '/dashboard/users/', :to => 'users#index'
-  get '/dashboard/users/new', :to => 'users#new'
-
-  get '/dashboard/puppies', :to => 'puppy#index'
-  get '/dashboard/puppies/new', :to => 'puppy#new'
-  get '/dashboard/puppies/edit', :to => 'puppy#edit'
-
-  post '/dashboard/puppies', :to => 'puppy#create', as: :puppies
+    resources :users
+    resources :puppies, controller: 'puppy'
+  end
 
   # Create an API namespace for our API and add versioning too!
   namespace :api, :defaults => {:format => :json} do #:constraints => {:subdomain => "api"}, :path => "" do #:path => ""
     namespace :v1 do
-      resources :puppies
+      resources :puppies, controller: 'puppy'
     end
   end
 end

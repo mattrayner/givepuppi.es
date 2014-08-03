@@ -12,7 +12,8 @@
  *= require_tree .
  */
 
-
-@import "bootstrap";
+@import 'scss_vars';
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic);
+@import 'bootstrap';
 
 body { margin-top: $navbar-height; }

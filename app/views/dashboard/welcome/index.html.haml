@@ -1,0 +1,19 @@
+.container
+  .jumbotron
+    %h1
+      Dashboard
+      %small
+        = @puppies.size
+        puppies.
+    %p.leader Welcome to the GivePuppies dashboard
+    .row-fluid
+      .col-md-6
+        = link_to 'Puppies', dashboard_puppies_path, class: 'btn btn-lg btn-primary btn-block'
+      .col-md-6
+        = link_to 'Users', dashboard_users_path, class: 'btn btn-lg btn-default btn-block'
+      .clearfix
+
+  %h2 Puppies
+  %p.lead Below is a table of all our puppies, listed by addition to the database.
+
+  = render 'dashboard/shared/puppy_table', puppies: @puppies

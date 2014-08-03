@@ -1,4 +1,7 @@
-class PuppyController < ApplicationController
+class Dashboard::PuppyController < DashboardController
+  def index
+  end
+
   def new
     @puppy = Puppy.new
   end

@@ -1,0 +1,9 @@
+%table.table.table-hover
+  %thead
+    %tr
+      %th #
+      %th Thumb
+      %th Orientation
+  %tbody
+    - puppies.each do |pupppy|
+      = render 'dashboard/shared/puppy_row', puppy: puppy

@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :firstname, :surname, :email, presence: true
+
+  def full_name
+    "#{self.firstname} #{self.surname}"
+  end
 end

@@ -3,20 +3,20 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Use mysql2 as the database for Active Record
-gem 'mysql2'
+# Use postgres as the database for Active Record
+gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
+
+# Use Bootstrap
+gem 'bootstrap-sass', '~> 3.1.1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+  gem 'yard', require: false
 end
 
 # Use ActiveModel has_secure_password
@@ -44,15 +44,12 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# User Bootstrap
-gem 'bootstrap-sass', '~> 3.1.1'
-
 # Use devise for authentication
 gem 'devise'
 
 # Allow image resizing on the server side
-#gem 'carrierwave'
-#gem 'mini_magick', '3.5.0'
+gem 'carrierwave'
+gem 'mini_magick', '3.5.0'
 
 # Allow gravatars within our app
 gem 'gravtastic'
@@ -62,6 +59,11 @@ gem "paperclip", "~> 4.1"
 
 # Allow for HAML rendering
 gem "haml"
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'factory_girl_rails'
+end
 
 # Add better errors to our application
 group :development do

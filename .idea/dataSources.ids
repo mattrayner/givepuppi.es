@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails givepuppi.es: development" uuid="f6977ffa-c6a4-44a4-a156-0f9e4d94155a">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails givepuppi.es: test" uuid="4eaa6a4b-2b0b-4530-99bd-d1ea0d6c27c8">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails givepuppi.es: production" uuid="cb877d71-5c8f-4c65-ad4c-76c82138138a">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

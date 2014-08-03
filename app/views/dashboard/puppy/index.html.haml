@@ -1,0 +1,9 @@
+.container
+  .jumbotron
+    %h1 Puppies!
+    .row-fluid
+      .col-md-9
+        %p From here you can manage all of the puppies within the application!
+      .col-md-3.text-right
+        = link_to '+ Add puppy', new_dashboard_puppy_path, class: 'btn btn-lg btn-primary'
+      .clearfix

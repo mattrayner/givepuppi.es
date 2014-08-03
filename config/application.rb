@@ -19,5 +19,7 @@ module Givepuppies
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    Givepuppies::Application.config.secret_key_base = '29dfd090da9aad06e2ecc0218c125af4f58bdf0050784cedf9c6c525c01f7b32c8d1b3802e18ec20a2d17b246f4d2856fce7fb6a0e0cccf7d4d8ecdeb7eab3f6'
   end
 end
