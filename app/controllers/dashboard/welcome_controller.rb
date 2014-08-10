@@ -1,6 +1,6 @@
-class Dashboard::WelcomeController < DashboardController
+class Dashboard::WelcomeController < Dashboard::DashboardController
 
   def index
-    @puppies = Puppy.all
+    @puppies = Puppy.enabled
   end
 end

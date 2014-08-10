@@ -4,6 +4,7 @@
       %th #
       %th Thumb
       %th Orientation
+      %td
   %tbody
-    - puppies.each do |pupppy|
+    - puppies.each do |puppy|
       = render 'dashboard/shared/puppy_row', puppy: puppy

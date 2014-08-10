@@ -1,4 +1,4 @@
-class Dashboard::UsersController < DashboardController
+class Dashboard::UsersController < Dashboard::DashboardController
   protect_from_forgery with: :exception
 
   def create

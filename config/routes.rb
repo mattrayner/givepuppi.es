@@ -61,7 +61,11 @@ Givepuppies::Application.routes.draw do
     get '/', :to => 'welcome#index'
 
     resources :users
-    resources :puppies, controller: 'puppy'
+    resources :puppies, controller: 'puppy' do
+      member do
+        get :toggle_disabled, :format => :json
+      end
+    end
   end
 
   # Create an API namespace for our API and add versioning too!

@@ -4,10 +4,12 @@ class Puppy < ActiveRecord::Base
 
   validates :orientation, presence: true
 
-  scope :enabled, -> { where(disabled: false) }
-  scope :disabled, -> { where(disabled: true) }
+  scope :enabled, -> { where(disabled: false).by_orientation }
+  scope :disabled, -> { where(disabled: true).by_orientation }
 
   scope :horizontal, -> { where(orientation: 'hor') }
   scope :vertical, -> { where(orientation: 'ver') }
   scope :square, -> { where(orientation: 'squ') }
+
+  scope :by_orientation, -> { order(:orientation, :created_at) }
 end
