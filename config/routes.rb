@@ -1,5 +1,9 @@
 Givepuppies::Application.routes.draw do
-  devise_for :users
+  if Rails.env.production?
+    devise_for :users, :controllers => { :registrations => "registrations" }
+  else
+    devise_for :users
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
