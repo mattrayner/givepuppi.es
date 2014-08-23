@@ -1,0 +1,6 @@
+
+before_script:
+  - psql -c 'create database givepuppies_test;' -U root
+language: ruby
+rvm:
+  - 2.1.2
