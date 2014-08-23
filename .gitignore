@@ -1,6 +1,5 @@
 *.rbc
 capybara-*.html
-.rspec
 /log
 /tmp
 /db/*.sqlite3
@@ -16,6 +15,7 @@ config/secrets.yml
 ## Environment normalisation:
 /.bundle
 /vendor/bundle
+/public/puppies/*
 
 # these should all be checked in to normalise the environment:
 # Gemfile.lock, .ruby-version, .ruby-gemset
@@ -25,3 +25,9 @@ config/secrets.yml
 
 # any temp files made by emacs
 **~
+
+# RubyMine files
+.idea
+
+# Images uploaded during our test pass
+/public/puppies/*
