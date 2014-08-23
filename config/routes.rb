@@ -1,5 +1,9 @@
 Givepuppies::Application.routes.draw do
-  devise_for :users
+  if Rails.env.production?
+    devise_for :users, :controllers => { :registrations => "registrations" }
+  else
+    devise_for :users
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -61,7 +65,11 @@ Givepuppies::Application.routes.draw do
     get '/', :to => 'welcome#index'
 
     resources :users
-    resources :puppies, controller: 'puppy'
+    resources :puppies, controller: 'puppy' do
+      member do
+        get :toggle_disabled, :format => :json
+      end
+    end
   end
 
   # Create an API namespace for our API and add versioning too!

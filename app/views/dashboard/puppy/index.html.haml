@@ -7,3 +7,13 @@
       .col-md-3.text-right
         = link_to '+ Add puppy', new_dashboard_puppy_path, class: 'btn btn-lg btn-primary'
       .clearfix
+  %ul.nav.nav-tabs{role: 'tablist'}
+    %li.active
+      %a{href: '#enabled', role: 'tab', data: {toggle: 'tab'}} Enabled
+    %li
+      %a{href: '#disabled', role: 'tab', data: {toggle: 'tab'}} Disabled
+  .tab-content
+    #enabled.tab-pane.fade.in.active
+      = render 'dashboard/shared/puppy_table', puppies: @enabled_puppies
+    #disabled.tab-pane.fade
+      = render 'dashboard/shared/puppy_table', puppies: @disabled_puppies

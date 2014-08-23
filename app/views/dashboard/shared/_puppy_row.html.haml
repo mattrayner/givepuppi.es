@@ -1,5 +1,10 @@
-%tr
-  %a{ href: edit_dashboard_puppies_url(puppy) }
-    %td= puppy.id
-    %td= puppy.thumbnail
-    %td= puppy.orientation
+- if puppy
+  %tr
+    %a{ href: edit_dashboard_puppy_url(puppy) }
+      %td= puppy.id
+      %td
+        %img{ src: puppy.image(:thumb) }
+      %td= puppy.orientation
+      %td.text-right
+        = link_to '', edit_dashboard_puppy_path(puppy), class: 'glyphicon glyphicon-pencil'
+        = link_to '', toggle_disabled_dashboard_puppy_path(puppy), remote: true, class: 'glyphicon glyphicon-trash toggle-disabled'

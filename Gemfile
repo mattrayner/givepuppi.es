@@ -60,6 +60,9 @@ gem "paperclip", "~> 4.1"
 # Allow for HAML rendering
 gem "haml"
 
+# Use SimpleForm for forms
+gem 'simple_form'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails'
