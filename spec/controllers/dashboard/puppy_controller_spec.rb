@@ -42,6 +42,10 @@ describe Dashboard::PuppyController do
       end
 
       it { expect(response).to redirect_to dashboard_puppies_url }
+
+      after :each do
+        Puppy.last.update_attribute(:image, nil)
+      end
     end
 
     context 'with invalid data' do
