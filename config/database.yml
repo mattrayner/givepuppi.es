@@ -16,7 +16,7 @@ development:
 test:
   adapter: postgresql
   database: givepuppies_test
-  username: root
+  username: postgres
   password:
   host: localhost
 
