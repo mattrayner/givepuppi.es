@@ -17,7 +17,7 @@ class Dashboard::PuppyController < Dashboard::DashboardController
     if @puppy.save && !orientation.nil?
       redirect_to dashboard_puppies_path
     else
-      flash[:alert] = "There was an issue updating the puppy. Please try again later"
+      flash[:alert] = 'There was an issue updating the puppy. Please try again later'
       render :new, status: orientation.nil? ? 422 : 200
     end
   end
@@ -30,13 +30,20 @@ class Dashboard::PuppyController < Dashboard::DashboardController
     if @puppy.save
       redirect_to dashboard_puppies_path
     else
-      flash[:alert] = "There was an issue updating the puppy. Please try again later"
+      flash[:alert] = 'There was an issue updating the puppy. Please try again later'
       render :edit
     end
   end
 
   def edit
-    @puppy = Puppy.find(params[:id])
+    puppies = Puppy.where id: params[:id]
+
+    if puppies.nil? || puppies.count == 0
+      flash[:alert] = "Unable to find puppy no. #{params[:id]}. Please try again."
+      redirect_to dashboard_puppies_path
+    else
+      @puppy = puppies.first
+    end
   end
 
   def destroy
