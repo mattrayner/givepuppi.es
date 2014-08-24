@@ -38,7 +38,7 @@ describe Dashboard::PuppyController do
       end
 
       it 'has an accessable image' do
-        expect(Puppy.all.last.image).to exist
+        expect(Puppy.last.image).to exist
       end
 
       it { expect(response).to redirect_to dashboard_puppies_url }
