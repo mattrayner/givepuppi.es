@@ -7,4 +7,5 @@
       %td= puppy.orientation
       %td.text-right
         = link_to '', edit_dashboard_puppy_path(puppy), class: 'glyphicon glyphicon-pencil'
-        = link_to '', toggle_disabled_dashboard_puppy_path(puppy), remote: true, class: 'glyphicon glyphicon-trash toggle-disabled'
+        = link_to '', toggle_disabled_dashboard_puppy_path(puppy), remote: true, class: "glyphicon glyphicon-#{puppy.enabled? ? 'minus' : 'plus'} toggle-disabled"
+        = link_to '', dashboard_puppy_path(puppy), method: :delete, remote: true, class: 'glyphicon glyphicon-trash trash-pupppy' if puppy.disabled?
