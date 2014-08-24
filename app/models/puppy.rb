@@ -1,5 +1,5 @@
 class Puppy < ActiveRecord::Base
-  has_attached_file :image, :styles => { :xlg => '1200x1200>', :lg => '600x600>', :md => '300x300>', :thmb => '150x150>' }, :default_url => '/puppies/:style/missing.png', :url => '/puppies/:style/:id.:extension', :path => 'puppies/:style/:id.:extension'
+  has_attached_file :image, :styles => { :xlg => '1200x1200>', :lg => '600x600>', :md => '300x300>', :sm => '200x200>', :thmb => '150x150>' }, :default_url => '/puppies/:style/missing.png', :url => '/puppies/:style/:id.:extension', :path => 'public/puppies/:style/:id.:extension'
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   validates :orientation, presence: true
