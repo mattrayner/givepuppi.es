@@ -1,5 +1,6 @@
 
 before_script:
+  - cp config/database.yml.travis config/database.yml
   - psql -c 'create database givepuppies_test;' -U postgres
 language: ruby
 rvm:
