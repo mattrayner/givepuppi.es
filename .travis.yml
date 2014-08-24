@@ -1,5 +1,6 @@
 
 before_script:
+  - psql -c 'createuser root -d'
   - psql -c 'create database givepuppies_test;' -U root
 language: ruby
 rvm:
