@@ -30,4 +30,4 @@ config/secrets.yml
 .idea
 
 # Images uploaded during our test pass
-/public/puppies/*
+/puppies/*

@@ -3,7 +3,7 @@
     %a{ href: edit_dashboard_puppy_url(puppy) }
       %td= puppy.id
       %td
-        %img{ src: puppy.image(:thumb) }
+        %img{ src: puppy.image(:thmb) }
       %td= puppy.orientation
       %td.text-right
         = link_to '', edit_dashboard_puppy_path(puppy), class: 'glyphicon glyphicon-pencil'

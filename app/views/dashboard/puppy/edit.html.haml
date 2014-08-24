@@ -7,4 +7,4 @@
   .col-md-8
     .well
       %h3 Current Image:
-      = @puppy.image :medium
+      %img.img-responsive{ src: @puppy.image(:lg) }
