@@ -10,28 +10,33 @@ class Dashboard::PuppyController < Dashboard::DashboardController
 
   def create
     @puppy = Puppy.new
-    @puppy.image = puppy_params[:image]
-    orientation = @puppy.get_orientation_of_image
-    @puppy.orientation = orientation
 
-    if @puppy.save && !orientation.nil?
+    @puppy.image = puppy_params[:image]
+    @puppy.orientation = @puppy.get_orientation_of_image if puppy_params_image_exists
+
+    if @puppy.save
       redirect_to dashboard_puppies_path
     else
-      flash[:alert] = 'There was an issue updating the puppy. Please try again later'
-      render :new, status: orientation.nil? ? 422 : 200
+      flash[:alert] = 'There was an issue updating the puppy. Please try again later.' if puppy_params_image_exists
+      flash[:notice] = 'Please try again with an image for our puppy,' unless puppy_params_image_exists
+      render :new, status: @puppy.orientation.nil? ? 422 : 200
     end
   end
 
   def update
     @puppy = Puppy.find_by id: params[:id]
-    @puppy.image = puppy_params[:image]
-    @puppy.orientation = @puppy.get_orientation_of_image
 
-    if @puppy.save
+    if puppy_params_image_exists
+      @puppy.image = puppy_params[:image]
+      @puppy.orientation = @puppy.get_orientation_of_image
+    end
+
+    if @puppy.save && !puppy_params[:image].nil? && !puppy_params[:image] == ''
       redirect_to dashboard_puppies_path
     else
-      flash[:alert] = 'There was an issue updating the puppy. Please try again later'
-      render :edit
+      flash[:alert] = 'There was an issue updating the puppy. Please try again later' if puppy_params_image_exists
+      flash[:notice] = 'You cannot update a puppy to no image... This would be bad.' unless puppy_params_image_exists
+      render :edit, status: @puppy.orientation.nil? ? 422 : 200
     end
   end
 
@@ -74,6 +79,14 @@ class Dashboard::PuppyController < Dashboard::DashboardController
 
   private
     def puppy_params
-      params.require(:puppy).permit(:image)
+      if params[:puppy].nil?
+        return Hash.new(nil)
+      else
+        params.require(:puppy).permit(:image)
+      end
+    end
+
+    def puppy_params_image_exists
+      !(puppy_params[:image].nil? || puppy_params[:image] == '')
     end
 end
