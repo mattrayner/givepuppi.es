@@ -4,10 +4,3 @@
 require File.expand_path('../config/application', __FILE__)
 
 Givepuppies::Application.load_tasks
-
-Rake::Task['spec'].clear
-task 'spec' do
-  puts ''
-  puts 'Please user \'rspec\' instead of \'rake spec\' for this application.'
-  puts ''
-end
