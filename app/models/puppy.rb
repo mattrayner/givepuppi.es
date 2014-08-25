@@ -16,4 +16,26 @@ class Puppy < ActiveRecord::Base
   def enabled?
     !self.disabled?
   end
+
+  def get_orientation_of_image
+    if self.image.queued_for_write[:original].nil?
+      flash[:alert] = 'Unable to complete the request as the image provided is invalid or was not present. Please try again.'
+      return nil
+    else
+      geometry = Paperclip::Geometry.from_file(self.image.queued_for_write[:original])
+
+      orientation = nil
+      if geometry.width.to_i > geometry.height.to_i
+        orientation = 'hor'
+      elsif geometry.height.to_i > geometry.width.to_i
+        orientation = 'ver'
+      elsif geometry.width.to_i == geometry.height.to_i
+        orientation = 'squ'
+      end
+
+      raise 'Unsupported dimensions of image. This should not happen, let us know if it does.' if orientation.nil?
+
+      orientation
+    end
+  end
 end

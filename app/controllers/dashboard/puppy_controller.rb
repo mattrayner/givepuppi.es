@@ -11,7 +11,7 @@ class Dashboard::PuppyController < Dashboard::DashboardController
   def create
     @puppy = Puppy.new
     @puppy.image = puppy_params[:image]
-    orientation = get_orientation_of_image
+    orientation = @puppy.get_orientation_of_image
     @puppy.orientation = orientation
 
     if @puppy.save && !orientation.nil?
@@ -25,7 +25,7 @@ class Dashboard::PuppyController < Dashboard::DashboardController
   def update
     @puppy = Puppy.find_by id: params[:id]
     @puppy.image = puppy_params[:image]
-    @puppy.orientation = get_orientation_of_image
+    @puppy.orientation = @puppy.get_orientation_of_image
 
     if @puppy.save
       redirect_to dashboard_puppies_path
@@ -75,28 +75,5 @@ class Dashboard::PuppyController < Dashboard::DashboardController
   private
     def puppy_params
       params.require(:puppy).permit(:image)
-    end
-
-    # Return the orientation for this puppy based on the image that has been uploaded
-    def get_orientation_of_image
-      if @puppy.image.queued_for_write[:original].nil?
-        flash[:alert] = 'Unable to complete the request as the image provided is invalid or was not present. Please try again.'
-        return nil
-      else
-        geometry = Paperclip::Geometry.from_file(@puppy.image.queued_for_write[:original])
-
-        orientation = nil
-        if geometry.width.to_i > geometry.height.to_i
-          orientation = 'hor'
-        elsif geometry.height.to_i > geometry.width.to_i
-          orientation = 'ver'
-        elsif geometry.width.to_i == geometry.height.to_i
-          orientation = 'squ'
-        end
-
-        raise 'Unsupported dimensions of image. This should not happen, let us know if it does.' if orientation.nil?
-
-        orientation
-      end
     end
 end
