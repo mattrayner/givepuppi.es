@@ -22,6 +22,10 @@ describe Dashboard::PuppyController do
 
     it { expect(response).to be_ok }
     it { expect(response).to render_template(partial: '_form') }
+
+    it 'should create the @puppy instance variable' do
+      expect(controller.instance_variable_get(:@puppy)).to be_an_instance_of Puppy
+    end
   end
 
   describe '#create' do
@@ -41,11 +45,7 @@ describe Dashboard::PuppyController do
         expect(Puppy.last.image).to exist
       end
 
-      it { expect(response).to redirect_to dashboard_puppies_url }
-
-      after :each do
-        Puppy.last.update_attribute(:image, nil)
-      end
+      it { expect(response).to redirect_to edit_dashboard_puppy_url(Puppy.last) }
     end
 
     context 'with invalid data' do
@@ -56,6 +56,7 @@ describe Dashboard::PuppyController do
       end
 
       it { expect(response).not_to be_ok }
+      it { expect(response).to render_template 'new' }
     end
   end
 
@@ -85,6 +86,57 @@ describe Dashboard::PuppyController do
       xhr :get, :toggle_disabled, {id: @puppy.id}
 
       expect(@puppy.reload.disabled).to be false
+    end
+  end
+
+  describe '#edit' do
+    before :each do
+      @puppy = create :puppy_with_image
+
+      get :edit, {id: @puppy.id}
+    end
+
+    it { expect(response).to be_ok }
+    it { expect(response).to render_template(partial: '_form') }
+
+    it 'should create the @puppy instance variable' do
+      expect(controller.instance_variable_get(:@puppy)).to be_an_instance_of Puppy
+      expect(controller.instance_variable_get(:@puppy)).to eql @puppy
+    end
+  end
+
+  describe '#update' do
+    before :each do
+      @puppy = create :puppy_with_image
+    end
+
+    context 'valid image' do
+      before :each do
+        @file = fixture_file_upload('ring.png', 'image/jpeg')
+        put :update, id: @puppy.id, puppy: {image: @file}
+      end
+
+      it { expect(response).to redirect_to edit_dashboard_puppy_url }
+
+      it 'does not set any FLASH messages' do
+        expect(flash[:notice]).to be_nil
+        expect(flash[:alert]).to be_nil
+      end
+    end
+
+    context 'invalid image' do
+      before :each do
+        put :update, id: @puppy.id, puppy: {image: nil}
+      end
+
+      it 'has a response code of 422' do
+        expect(response.code).to eql '422'
+      end
+
+      it 'sets a notice FLASH messages' do
+        expect(flash[:notice]).not_to be_nil
+        expect(flash[:alert]).to be_nil
+      end
     end
   end
 

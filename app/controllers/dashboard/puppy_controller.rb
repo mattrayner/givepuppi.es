@@ -11,14 +11,18 @@ class Dashboard::PuppyController < Dashboard::DashboardController
   def create
     @puppy = Puppy.new
 
-    @puppy.image = puppy_params[:image]
-    @puppy.orientation = @puppy.get_orientation_of_image if puppy_params_image_exists
+    valid_puppy_image = puppy_params_image_valid
+
+    if valid_puppy_image
+      @puppy.image = puppy_params[:image]
+      @puppy.orientation = @puppy.get_orientation_of_image
+    end
 
     if @puppy.save
-      redirect_to dashboard_puppies_path
+      redirect_to edit_dashboard_puppy_path(@puppy)
     else
-      flash[:alert] = 'There was an issue updating the puppy. Please try again later.' if puppy_params_image_exists
-      flash[:notice] = 'Please try again with an image for our puppy,' unless puppy_params_image_exists
+      flash[:alert] = 'There was an issue updating the puppy. Please try again later.' if valid_puppy_image
+      flash[:notice] = 'Please try again with an image for our puppy,' unless valid_puppy_image
       render :new, status: @puppy.orientation.nil? ? 422 : 200
     end
   end
@@ -26,18 +30,18 @@ class Dashboard::PuppyController < Dashboard::DashboardController
   def update
     @puppy = Puppy.find_by id: params[:id]
 
-    if puppy_params_image_exists
+    valid_puppy_image = puppy_params_image_valid
+
+    if valid_puppy_image
       @puppy.image = puppy_params[:image]
       @puppy.orientation = @puppy.get_orientation_of_image
+
+      return redirect_to edit_dashboard_puppy_path if @puppy.save
     end
 
-    if @puppy.save && !puppy_params[:image].nil? && !puppy_params[:image] == ''
-      redirect_to dashboard_puppies_path
-    else
-      flash[:alert] = 'There was an issue updating the puppy. Please try again later' if puppy_params_image_exists
-      flash[:notice] = 'You cannot update a puppy to no image... This would be bad.' unless puppy_params_image_exists
-      render :edit, status: @puppy.orientation.nil? ? 422 : 200
-    end
+    flash[:alert] = 'There was an issue updating the puppy. Please try again later' if valid_puppy_image
+    flash[:notice] = 'You cannot update a puppy to no image... This would be bad.' unless valid_puppy_image
+    render :edit, status: 422
   end
 
   def edit
@@ -86,7 +90,7 @@ class Dashboard::PuppyController < Dashboard::DashboardController
       end
     end
 
-    def puppy_params_image_exists
-      !(puppy_params[:image].nil? || puppy_params[:image] == '')
+    def puppy_params_image_valid
+      (puppy_params[:image].class == ActionDispatch::Http::UploadedFile || puppy_params[:image].class == Rack::Test::UploadedFile) && !(puppy_params[:image].content_type.match /image\/(jpeg|png|jpg)/).nil?
     end
 end

@@ -3,7 +3,7 @@
 # @since 0.1
 #
 # @todo Some kind of 'you just did X, click here to undo'
-class Puppy
+class Puppys
   # Deal with toggling disabled on a puppy (within a table row)
   #
   # @author Matt Rayner
@@ -33,10 +33,9 @@ class Puppy
       UI.show_undo_helper 'SOME UNDO HELPER TEXT GOES HERE', 'UNDO DISABLE', ->
         UI.slide_down(row)
 
-window.Puppy = Puppy
+window.Puppys = Puppys
 
 jQuery ->
   # Listen for a click on toggle_disabled
   $('tr a.toggle-disabled[data-remote=\'true\']').each ->
-    console.log "called"
-    Puppy.toggle_disabled_on_row(this)
+    Puppys.toggle_disabled_on_row(this)
